@@ -9,5 +9,9 @@
     "peridot-php/peridot-watcher-plugin": "~1.3",
     "peridot-php/peridot-prophecy-plugin": "~1.1",
     "peridot-php/leo": "~1.2"
+  },
+  "require": {
+    "zendframework/zendframework": "~2.3"
   }
 }
+
