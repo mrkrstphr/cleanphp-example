@@ -1,5 +1,8 @@
 {
   "autoload": {
+    "psr-0": {
+      "Application\\": ["module/Application/src"]
+    },
     "psr-4": {
       "CleanPhp\\Invoicer\\": ["src/"]
     }
