@@ -1,0 +1,27 @@
+<div class="page-header clearfix">
+    <h2>Order #<?= $this->escapeHtml($this->order->getOrderNumber()) ?></h2>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th colspan="2">Order Details</th>
+    </tr>
+    </thead>
+    <tr>
+        <th>Customer:</th>
+        <td>
+            <a href="/customers/edit/<?=
+            $this->escapeHtmlAttr($this->order->getCustomer()->getId()) ?>">
+                <?= $this->escapeHtml($this->order->getCustomer()->getName()) ?></a>
+        </td>
+    </tr>
+    <tr>
+        <th>Description:</th>
+        <td><?= $this->escapeHtml($this->order->getDescription()) ?></td>
+    </tr>
+    <tr>
+        <th>Total:</th>
+        <td>$ <?= number_format($this->order->getTotal(), 2) ?></td>
+    </tr>
+</table>

@@ -33,4 +33,22 @@ class OrdersController extends AbstractActionController
             'orders' => $this->orderRepository->getAll()
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function viewAction()
+    {
+        $id = $this->params()->fromRoute('id');
+        $order = $this->orderRepository->getById($id);
+
+        if (!$order) {
+            $this->getResponse()->setStatusCode(404);
+            return null;
+        }
+
+        return [
+            'order' => $order
+        ];
+    }
 }
