@@ -106,6 +106,11 @@ return [
                     new ClassMethods()
                 );
             },
+            'Application\Controller\Orders' => function ($sm) {
+                return new \Application\Controller\OrdersController(
+                    $sm->getServiceLocator()->get('OrderTable')
+                );
+            },
         ],
     ],
     'view_helpers' => [
