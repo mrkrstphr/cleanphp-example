@@ -1,0 +1,15 @@
+<?php
+$flash = $this->flashMessenger();
+$flash->setMessageOpenFormat('<div%s role="alert">
+   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+   </button>
+   <div>')
+    ->setMessageSeparatorString('</div><div>')
+    ->setMessageCloseString('</div></div>');
+?>
+
+<?= $this->flashMessenger()->render(
+    'success',
+    ['alert', 'alert-dismissible', 'alert-success']
+) ?>
