@@ -1,5 +1,8 @@
 <?php
 
+use CleanPhp\Invoicer\Service\InputFilter\CustomerInputFilter;
+use Zend\Stdlib\Hydrator\ClassMethods;
+
 return [
     'router' => [
         'routes' => [
@@ -22,6 +25,18 @@ return [
                         'action'     => 'index',
                     ],
                 ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'create' => [
+                        'type' => 'Segment',
+                        'options' => [
+                            'route' => '/new',
+                            'defaults' => [
+                                'action' => 'new',
+                            ],
+                        ]
+                    ],
+                ]
             ],
             'orders' => [
                 'type' => 'Segment',
