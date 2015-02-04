@@ -71,10 +71,17 @@ return [
         'factories' => [
             'Application\Controller\Customers' => function ($sm) {
                 return new \Application\Controller\CustomersController(
-                    $sm->getServiceLocator()->get('CustomerTable')
+                    $sm->getServiceLocator()->get('CustomerTable'),
+                    new CustomerInputFilter(),
+                    new ClassMethods()
                 );
             },
         ],
+    ],
+    'view_helpers' => [
+        'invokables' => [
+            'validationErrors' => 'Application\View\Helper\ValidationErrors',
+        ]
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
