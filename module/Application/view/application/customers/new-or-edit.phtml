@@ -1,5 +1,8 @@
 <div class="page-header clearfix">
-    <h2>New Customer</h2>
+    <h2>
+        <?= !empty($this->customer->getId()) ? 'Edit' : 'New' ?>
+        Customer
+    </h2>
 </div>
 
 <form role="form" action="" method="post">
