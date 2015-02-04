@@ -1,0 +1,43 @@
+<div class="page-header clearfix">
+    <h2>Create Order</h2>
+</div>
+
+<form role="form" action="" method="post">
+    <div class="form-group">
+        <label for="customer_id">Customer:</label>
+        <select class="form-control" name="customer[id]" id="customer_id">
+            <option value=""></option>
+            <?php foreach ($this->customers as $customer): ?>
+                <option value="<?= $this->escapeHtmlAttr($customer->getId()) ?>"<?=
+                !is_null($this->order->getCustomer()) &&
+                $this->order->getCustomer()->getId() == $customer->getId() ?
+                    ' selected="selected"' : '' ?>>
+                    <?= $this->escapeHtml($customer->getName()) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <?= $this->validationErrors('customer.id') ?>
+    </div>
+    <div class="form-group">
+        <label for="orderNumber">Order Number:</label>
+        <input type="text" class="form-control" name="orderNumber"
+               id="order_number" placeholder="Enter Order Number"
+               value="<?= $this->escapeHtmlAttr($this->order->getOrderNumber()) ?>">
+        <?= $this->validationErrors('orderNumber') ?>
+    </div>
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" class="form-control" name="description"
+               id="description" placeholder="Enter Description"
+               value="<?= $this->escapeHtmlAttr($this->order->getDescription()) ?>">
+        <?= $this->validationErrors('description') ?>
+    </div>
+    <div class="form-group">
+        <label for="total">Total:</label>
+        <input type="text" class="form-control" name="total"
+               id="total" placeholder="Enter Total"
+               value="<?= $this->escapeHtmlAttr($this->order->getTotal()) ?>">
+        <?= $this->validationErrors('total') ?>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
