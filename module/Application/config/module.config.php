@@ -107,6 +107,11 @@ return [
                     new ClassMethods()
                 );
             },
+            'Application\Controller\Invoices' => function ($sm) {
+                return new \Application\Controller\InvoicesController(
+                    $sm->getServiceLocator()->get('InvoiceTable')
+                );
+            },
             'Application\Controller\Orders' => function ($sm) {
                 return new \Application\Controller\OrdersController(
                     $sm->getServiceLocator()->get('OrderTable'),

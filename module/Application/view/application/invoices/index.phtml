@@ -1,0 +1,38 @@
+<div class="page-header clearfix">
+    <h2 class="pull-left">Invoices</h2>
+    <a href="/invoices/new" class="btn btn-success pull-right">
+        Generate Invoices</a>
+</div>
+
+<table class="table table-striped clearfix">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Order Number</th>
+        <th>Invoice Date</th>
+        <th>Customer</th>
+        <th>Description</th>
+        <th class="text-right">Total</th>
+    </tr>
+    </thead>
+    <?php foreach ($this->invoices as $invoice): ?>
+        <tr>
+            <td>
+                <a href="/invoices/view/<?= $this->escapeHtmlAttr($invoice->getId()) ?>">
+                    <?= $this->escapeHtml($invoice->getId()) ?></a>
+            </td>
+            <td>
+                <?= $invoice->getInvoiceDate()->format('m/d/Y') ?>
+            </td>
+            <td><?= $this->escapeHtml($invoice->getOrder()->getOrderNumber()) ?></td>
+            <td>
+                <a href="/customers/edit/<?= $this->escapeHtmlAttr($invoice->getOrder()->getCustomer()->getId()) ?>">
+                    <?= $this->escapeHtml($invoice->getOrder()->getCustomer()->getName()) ?></a>
+            </td>
+            <td><?= $this->escapeHtml($invoice->getOrder()->getDescription()) ?></td>
+            <td class="text-right">
+                $ <?= number_format($invoice->getTotal(), 2) ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
