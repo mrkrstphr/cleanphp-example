@@ -3,6 +3,7 @@
 use CleanPhp\Invoicer\Domain\Entity\Customer;
 use CleanPhp\Invoicer\Domain\Entity\Invoice;
 use CleanPhp\Invoicer\Domain\Entity\Order;
+use CleanPhp\Invoicer\Persistence\Hydrator\InvoiceHydrator;
 use CleanPhp\Invoicer\Persistence\Hydrator\OrderHydrator;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\CustomerTable;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\InvoiceTable;
@@ -14,6 +15,13 @@ return [
     'service_manager' => [
         'factories' => [
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+
+            'InvoiceHydrator' => function ($sm) {
+                return new InvoiceHydrator(
+                    new ClassMethods(),
+                    $sm->get('OrderTable')
+                );
+            },
 
             'OrderHydrator' => function ($sm) {
                 return new OrderHydrator(
@@ -38,7 +46,7 @@ return [
             },
             'InvoiceTable' =>  function($sm) {
                 $factory = new TableGatewayFactory();
-                $hydrator = new ClassMethods();
+                $hydrator = $sm->get('InvoiceHydrator');
 
                 return new InvoiceTable(
                     $factory->createGateway(
