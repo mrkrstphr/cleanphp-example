@@ -14,7 +14,7 @@
     "peridot-php/leo": "~1.2"
   },
   "require": {
-    "zendframework/zendframework": "~2.4"
+    "zendframework/zendframework": "~2.4",
+    "vnn/keyper": "~1.2"
   }
 }
-
