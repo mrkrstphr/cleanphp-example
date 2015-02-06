@@ -3,6 +3,7 @@
 namespace Application\Controller;
 
 use CleanPhp\Invoicer\Domain\Repository\InvoiceRepositoryInterface;
+use CleanPhp\Invoicer\Domain\Repository\OrderRepositoryInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
@@ -17,11 +18,18 @@ class InvoicesController extends AbstractActionController
     protected $invoiceRepository;
 
     /**
-     * @param InvoiceRepositoryInterface $invoices
+     * @var OrderRepositoryInterface
      */
-    public function __construct(InvoiceRepositoryInterface $invoices)
+    protected $orderRepository;
+
+    /**
+     * @param InvoiceRepositoryInterface $invoices
+     * @param OrderRepositoryInterface $orders
+     */
+    public function __construct(InvoiceRepositoryInterface $invoices, OrderRepositoryInterface $orders)
     {
         $this->invoiceRepository = $invoices;
+        $this->orderRepository = $orders;
     }
 
     /**
@@ -33,6 +41,16 @@ class InvoicesController extends AbstractActionController
 
         return [
             'invoices' => $invoices
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function newAction()
+    {
+        return [
+            'orders' => $this->orderRepository->getUninvoicedOrders()
         ];
     }
 }

@@ -67,10 +67,10 @@ return [
             'invoices' => [
                 'type' => 'Segment',
                 'options' => [
-                    'route'    => '/invoices',
+                    'route' => '/invoices[/:action[/:id]]',
                     'defaults' => [
                         'controller' => 'Application\Controller\Invoices',
-                        'action'     => 'index',
+                        'action' => 'index',
                     ],
                 ],
             ],
@@ -109,7 +109,8 @@ return [
             },
             'Application\Controller\Invoices' => function ($sm) {
                 return new \Application\Controller\InvoicesController(
-                    $sm->getServiceLocator()->get('InvoiceTable')
+                    $sm->getServiceLocator()->get('InvoiceTable'),
+                    $sm->getServiceLocator()->get('OrderTable')
                 );
             },
             'Application\Controller\Orders' => function ($sm) {
