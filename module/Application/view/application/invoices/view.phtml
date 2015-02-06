@@ -1,0 +1,35 @@
+<div class="page-header clearfix">
+    <h2>Invoice #<?= $this->escapeHtml($this->invoice->getId()) ?></h2>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th colspan="2">Invoice Details</th>
+        </tr>
+    </thead>
+    <tr>
+        <th>Customer:</th>
+        <td>
+            <a href="/customers/edit/<?=
+            $this->escapeHtmlAttr($this->order->getCustomer()->getId()) ?>">
+                <?= $this->escapeHtml($this->order->getCustomer()->getName()) ?></a>
+        </td>
+    </tr>
+    <tr>
+        <th>Order:</th>
+        <td>
+            <a href="/orders/view/<?=
+            $this->escapeHtmlAttr($this->order->getId()) ?>">
+                <?= $this->escapeHtml($this->order->getOrderNumber()) ?></a>
+        </td>
+    </tr>
+    <tr>
+        <th>Description:</th>
+        <td><?= $this->escapeHtml($this->order->getDescription()) ?></td>
+    </tr>
+    <tr>
+        <th>Total:</th>
+        <td>$ <?= number_format($this->invoice->getTotal(), 2) ?></td>
+    </tr>
+</table>

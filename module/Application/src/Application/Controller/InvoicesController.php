@@ -58,6 +58,25 @@ class InvoicesController extends AbstractActionController
     /**
      * @return array
      */
+    public function viewAction()
+    {
+        $id = $this->params()->fromRoute('id');
+        $invoice = $this->invoiceRepository->getById($id);
+
+        if (!$invoice) {
+            $this->getResponse()->setStatusCode(404);
+            return null;
+        }
+
+        return [
+            'invoice' => $invoice,
+            'order' => $invoice->getOrder()
+        ];
+    }
+
+    /**
+     * @return array
+     */
     public function newAction()
     {
         return [
