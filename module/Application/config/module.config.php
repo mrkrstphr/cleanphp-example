@@ -1,5 +1,7 @@
 <?php
 
+use CleanPhp\Invoicer\Domain\Factory\InvoiceFactory;
+use CleanPhp\Invoicer\Domain\Service\InvoicingService;
 use CleanPhp\Invoicer\Service\InputFilter\CustomerInputFilter;
 use CleanPhp\Invoicer\Service\InputFilter\OrderInputFilter;
 use Zend\Stdlib\Hydrator\ClassMethods;
@@ -110,7 +112,11 @@ return [
             'Application\Controller\Invoices' => function ($sm) {
                 return new \Application\Controller\InvoicesController(
                     $sm->getServiceLocator()->get('InvoiceTable'),
-                    $sm->getServiceLocator()->get('OrderTable')
+                    $sm->getServiceLocator()->get('OrderTable'),
+                    new InvoicingService(
+                        $sm->getServiceLocator()->get('OrderTable'),
+                        new InvoiceFactory()
+                    )
                 );
             },
             'Application\Controller\Orders' => function ($sm) {
