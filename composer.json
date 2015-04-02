@@ -15,6 +15,8 @@
   },
   "require": {
     "zendframework/zendframework": "~2.4",
-    "vnn/keyper": "~1.2"
+    "vnn/keyper": "~1.2",
+    "doctrine/orm": "~2.4",
+    "symfony/yaml": "~2.6"
   }
 }
