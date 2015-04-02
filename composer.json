@@ -17,6 +17,7 @@
     "zendframework/zendframework": "~2.4",
     "vnn/keyper": "~1.2",
     "doctrine/orm": "~2.4",
-    "symfony/yaml": "~2.6"
+    "symfony/yaml": "~2.6",
+    "doctrine/doctrine-orm-module": "0.8.*"
   }
 }

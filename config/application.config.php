@@ -2,6 +2,8 @@
 
 return [
     'modules' => [
+        'DoctrineModule',
+        'DoctrineORMModule',
         'Application',
     ],
     'module_listener_options' => [

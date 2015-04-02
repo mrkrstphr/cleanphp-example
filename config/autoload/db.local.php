@@ -1,8 +1,14 @@
 <?php
 
 return [
-    'db' => [
-        'driver' => 'Pdo_Sqlite',
-        'database' => __DIR__ . '/../../data/database.db',
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOSqlite\Driver',
+                'params' => [
+                    'path' => __DIR__ . '/../../data/database.db',
+                ]
+            ]
+        ],
     ],
 ];
