@@ -1,0 +1,13 @@
+CleanPhp\Invoicer\Domain\Entity\Customer:
+  type: entity
+  table: customers
+  id:
+    id:
+      type: bigint
+      generator:
+        strategy: IDENTITY
+  fields:
+    name:
+      length: 100
+    email:
+      length: 50
