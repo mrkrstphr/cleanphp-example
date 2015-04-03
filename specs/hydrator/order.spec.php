@@ -34,35 +34,25 @@ describe('Persistence\Hydrator\OrderHydrator', function () {
             expect($order->getTotal())->to->equal(5000);
         });
 
-        it('should hydrate a Customer entity on the Order', function () {
-            $data = [
-                'customer_id' => 500
-            ];
-
-            $customer = (new Customer())->setId(500);
-            $order = new Order();
-
-            $this->repository->getById(500)
-                ->shouldBeCalled()
-                ->willReturn($customer);
-
-            $this->hydrator->hydrate($data, $order);
-
-            expect($order->getCustomer())->to->equal($customer);
-
-            $this->getProphet()->checkPredictions();
-        });
-
         it('should hydrate the embedded customer data', function () {
             $data = ['customer' => ['id' => 20]];
             $order = new Order();
 
+            $this->repository->getById(20)->willReturn((new Customer())->setId(20));
             $this->hydrator->hydrate($data, $order);
 
             assert(
                 $data['customer']['id'] === $order->getCustomer()->getId(),
                 'id does not match'
             );
+        });
+
+        it('should unset a null "customer"', function () {
+            $data = ['customer' => null];
+            $order = new Order();
+
+            $this->hydrator->hydrate($data, $order);
+            expect($order->getCustomer())->to->be->null();
         });
     });
 
