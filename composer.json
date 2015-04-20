@@ -1,23 +1,49 @@
 {
-  "autoload": {
-    "psr-0": {
-      "Application\\": ["module/Application/src"]
-    },
-    "psr-4": {
-      "CleanPhp\\Invoicer\\": ["src/"]
-    }
-  },
-  "require-dev": {
-    "peridot-php/peridot": "~1.8",
-    "peridot-php/peridot-watcher-plugin": "~1.3",
-    "peridot-php/peridot-prophecy-plugin": "~1.1",
-    "peridot-php/leo": "~1.2"
-  },
-  "require": {
-    "zendframework/zendframework": "~2.4",
-    "vnn/keyper": "~1.2",
-    "doctrine/orm": "~2.4",
-    "symfony/yaml": "~2.6",
-    "doctrine/doctrine-orm-module": "0.8.*"
-  }
+	"name": "laravel/laravel",
+	"description": "The Laravel Framework.",
+	"keywords": ["framework", "laravel"],
+	"license": "MIT",
+	"type": "project",
+	"require": {
+		"laravel/framework": "5.0.*"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~4.0",
+		"phpspec/phpspec": "~2.1",
+		"peridot-php/peridot": "~1.15",
+		"peridot-php/leo": "~1.4",
+		"peridot-php/peridot-watcher-plugin": "~1.3",
+		"peridot-php/peridot-prophecy-plugin": "~1.1"
+	},
+	"autoload": {
+		"classmap": [
+			"database"
+		],
+		"psr-4": {
+			"App\\": "app/",
+		  	"CleanPhp\\Invoicer\\": "core/"
+		}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/TestCase.php"
+		]
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-update-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-create-project-cmd": [
+			"php -r \"copy('.env.example', '.env');\"",
+			"php artisan key:generate"
+		]
+	},
+	"config": {
+		"preferred-install": "dist"
+	}
 }
