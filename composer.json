@@ -12,7 +12,12 @@
 	],
 	"require": {
 		"laravel/framework": "5.0.*",
-	  	"mrkrstphr/laravel-indoctrinated": "0.*"
+	  	"mrkrstphr/laravel-indoctrinated": "0.*",
+		"zendframework/zend-inputfilter": "~2.4",
+		"zendframework/zend-servicemanager": "~2.4",
+		"zendframework/zend-i18n": "~2.4",
+		"zendframework/zend-stdlib": "~2.4",
+		"vnn/keyper": "~1.3"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
