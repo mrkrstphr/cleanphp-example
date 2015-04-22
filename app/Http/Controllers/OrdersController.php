@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use CleanPhp\Invoicer\Domain\Entity\Order;
 use CleanPhp\Invoicer\Domain\Repository\CustomerRepositoryInterface;
 use CleanPhp\Invoicer\Domain\Repository\OrderRepositoryInterface;
 use CleanPhp\Invoicer\Persistence\Hydrator\OrderHydrator;
 use CleanPhp\Invoicer\Service\InputFilter\OrderInputFilter;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class OrdersController
@@ -80,5 +84,46 @@ class OrdersController extends Controller
         }
 
         return view('orders/view', ['order' => $order]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\View\View|RedirectResponse
+     */
+    public function newAction(Request $request)
+    {
+        $viewModel = [];
+        $order = new Order();
+
+        if ($request->getMethod() == 'POST') {
+            $this->inputFilter
+                ->setData($request->request->all());
+
+            if ($this->inputFilter->isValid()) {
+                $order = $this->hydrator->hydrate(
+                    $this->inputFilter->getValues(),
+                    $order
+                );
+
+                $this->orderRepository
+                    ->begin()
+                    ->persist($order)
+                    ->commit();
+
+                Session::flash('success', 'Order Saved');
+                return new RedirectResponse('/orders/view/' . $order->getId());
+            } else {
+                $this->hydrator->hydrate(
+                    $request->request->all(),
+                    $order
+                );
+                $viewModel['error'] = $this->inputFilter->getMessages();
+            }
+        }
+
+        $viewModel['customers'] = $this->customerRepository->getAll();
+        $viewModel['order'] = $order;
+
+        return view('orders/new', $viewModel);
     }
 }
