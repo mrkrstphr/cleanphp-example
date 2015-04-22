@@ -6,6 +6,7 @@ use CleanPhp\Invoicer\Domain\Repository\CustomerRepositoryInterface;
 use CleanPhp\Invoicer\Domain\Repository\OrderRepositoryInterface;
 use CleanPhp\Invoicer\Persistence\Hydrator\OrderHydrator;
 use CleanPhp\Invoicer\Service\InputFilter\OrderInputFilter;
+use Illuminate\Http\Response;
 
 /**
  * Class OrdersController
@@ -64,5 +65,20 @@ class OrdersController extends Controller
         $orders = $this->orderRepository->getAll();
 
         return view('orders/index', ['orders' => $orders]);
+    }
+
+    /**
+     * @param int $id
+     * @return Response|\Illuminate\View\View
+     */
+    public function viewAction($id)
+    {
+        $order = $this->orderRepository->getById($id);
+
+        if (!$order) {
+            return new Response('', 404);
+        }
+
+        return view('orders/view', ['order' => $order]);
     }
 }
