@@ -11,7 +11,7 @@
     "peridot-php/leo": "~1.2"
   },
   "require": {
-    "zendframework/zendframework": "~2.3"
+    "zendframework/zendframework": "~2.4"
   }
 }
 
