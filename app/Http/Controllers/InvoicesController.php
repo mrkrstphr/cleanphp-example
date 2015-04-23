@@ -51,4 +51,32 @@ class InvoicesController extends Controller
 
         return view('invoices/index', ['invoices' => $invoices]);
     }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function newAction()
+    {
+        return view('invoices/new', [
+            'orders' => $this->orderRepository->getUninvoicedOrders()
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function generateAction()
+    {
+        $invoices = $this->invoicing->generateInvoices();
+
+        $this->invoiceRepository->begin();
+
+        foreach ($invoices as $invoice) {
+            $this->invoiceRepository->persist($invoice);
+        }
+
+        $this->invoiceRepository->commit();
+
+        return view('invoices/generate', ['invoices' => $invoices]);
+    }
 }
